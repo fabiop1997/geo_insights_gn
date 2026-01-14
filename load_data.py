@@ -2,12 +2,11 @@
 #%%
 import geopandas as gpd
 import pandas as pd
-from dotenv import load_dotenv
 import os
 from malhas_bairros import merge_malha_agregados
 import streamlit as st
 
-load_dotenv()
+
 
 @st.cache_data
 def carregar_dados() -> tuple[pd.DataFrame,pd.DataFrame]:
