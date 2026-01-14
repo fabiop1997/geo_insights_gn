@@ -3,7 +3,6 @@
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
-import osgit add
 import streamlit as st
 from shapely import wkt
 from spatial_join import spatial_join

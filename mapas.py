@@ -8,10 +8,7 @@ import streamlit as st
 import geopandas as gp
 from malhas_bairros import merge_malha_agregados
 from cobertura import rev_bairro_geometry
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+from load_data import carregar_dados
 
 
 def style_function(feature):
@@ -89,25 +86,24 @@ def realizar_mapa(df_rev: pd.DataFrame ) -> folium.Map:
 
 
 
-    path_malhas = os.getenv("PATH_MALHA_BAIRROS")
-
-    path_agregados = os.getenv("PATH_AGREGADOS_BAIRROS")
 
     #%%
 
-    malha_bairros = gp.read_file(path_malhas)
+    
 
-    agregados_bairro = pd.read_excel(path_agregados)
+    _,malha_bairros = carregar_dados()
+
+    
 
 
-    bairros_poligonos_agregados = merge_malha_agregados(malha_bairros,agregados_bairro)
 
-    bairros_poligonos_agregados = bairros_poligonos_agregados[bairros_poligonos_agregados['NM_MUN'] == "Mossoró"]
+
+    malha_bairros = malha_bairros[malha_bairros['NM_MUN'] == "Mossoró"]
 
     
 
     folium.GeoJson(
-    data=bairros_poligonos_agregados,
+    data=malha_bairros,
     style_function=style_function,
     highlight_function=highlight_function,
     tooltip=folium.GeoJsonTooltip
